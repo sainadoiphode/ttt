@@ -1,84 +1,340 @@
-const SUPABASE_URL =
-    "https://btcrrfetdxsgugjxytok.supabase.co";
-
-const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_c01hMVSsAB41BbTfSw7acg_5Rb5B6tA";
-
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-);
-
-let personName = "";
-
-function continueToProposal() {
-
-    const input = document.getElementById("nameInput");
-
-    personName = input.value.trim();
-
-    if (!personName) {
-        input.focus();
-        return;
-    }
-
-    document.getElementById("namePage").classList.add("hidden");
-    document.getElementById("proposalPage").classList.remove("hidden");
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-
-function toggleTerms() {
-
-    const terms = document.getElementById("terms");
-    const arrow = document.getElementById("arrow");
-
-    if (terms.classList.contains("hidden")) {
-
-        terms.classList.remove("hidden");
-        arrow.textContent = "−";
-
-    } else {
-
-        terms.classList.add("hidden");
-        arrow.textContent = "+";
-
-    }
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    background: #f8f5ef;
+    color: #25221f;
+    min-height: 100vh;
 }
 
+.page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
 
-async function sendResponse(answer) {
+.hidden {
+    display: none !important;
+}
 
-    const buttons = document.getElementById("responseButtons");
-    const message = document.getElementById("responseMessage");
+.card {
+    width: 100%;
+    max-width: 620px;
+    background: #fffdf9;
+    border: 1px solid #e7dfd4;
+    border-radius: 22px;
+    padding: 46px;
+    box-shadow: 0 18px 50px rgba(50, 40, 30, 0.08);
+}
 
-    buttons.style.pointerEvents = "none";
+.name-card {
+    max-width: 460px;
+}
 
-    const { error } = await supabaseClient
-        .from("responses")
-        .insert([
-            {
-                name: personName,
-                answer: answer
-            }
-        ]);
+.section-label {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #8a8177;
+    margin-bottom: 16px;
+}
 
-    if (error) {
+#nameInput {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #cfc6bb;
+    background: transparent;
+    padding: 12px 2px;
+    font-family: inherit;
+    font-size: 22px;
+    color: #25221f;
+    outline: none;
+    margin-bottom: 28px;
+}
 
-        console.error("Supabase error:", error);
+#nameInput::placeholder {
+    color: #c9c1b8;
+    opacity: 1;
+}
 
-        buttons.style.pointerEvents = "auto";
+#nameInput:focus {
+    border-bottom-color: #71675d;
+}
 
-        message.textContent =
-            "Something went wrong. Please try again.";
+.primary-btn {
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    background: #292521;
+    color: white;
+    font-family: inherit;
+    font-size: 16px;
+    cursor: pointer;
+}
 
-        return;
+.primary-btn:hover {
+    background: #3b3530;
+}
+
+.opening {
+    font-size: 17px;
+    color: #756c63;
+    margin-bottom: 8px;
+}
+
+h1 {
+    font-size: 42px;
+    font-weight: 500;
+    line-height: 1.15;
+    margin-bottom: 34px;
+}
+
+.terms-section {
+    border-top: 1px solid #e5ddd3;
+    border-bottom: 1px solid #e5ddd3;
+}
+
+.terms-toggle {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 19px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: inherit;
+    font-size: 16px;
+    color: #332e29;
+    cursor: pointer;
+    text-align: left;
+}
+
+#arrow {
+    font-size: 22px;
+    color: #8b8177;
+}
+
+.terms {
+    padding: 0 0 18px;
+}
+
+.term {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 10px;
+    padding: 12px 0;
+    border-top: 1px solid #eee8e1;
+}
+
+.term span {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    color: #a49a90;
+    padding-top: 3px;
+}
+
+.term p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: #625a52;
+}
+
+.note {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f5f0e9;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    line-height: 1.5;
+}
+
+.note strong {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.note span {
+    font-size: 15px;
+    color: #71685f;
+}
+
+.clarification {
+    margin-top: 26px;
+    padding-left: 18px;
+    border-left: 2px solid #d8cec3;
+}
+
+.clarification-title {
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.clarification p:last-child {
+    color: #70675e;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.question {
+    text-align: center;
+    margin-top: 36px;
+}
+
+.question p {
+    font-size: 21px;
+}
+
+.question small {
+    display: block;
+    max-width: 470px;
+    margin: 10px auto 0;
+    color: #8a8178;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.buttons button {
+    flex: 1;
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.yes-btn {
+    border: 1px solid #292521;
+    background: #292521;
+    color: white;
+}
+
+.yes-btn:hover {
+    background: #3b3530;
+}
+
+.no-btn {
+    border: 1px solid #d5ccc2;
+    background: transparent;
+    color: #4d4741;
+}
+
+.no-btn:hover {
+    background: #f4eee7;
+}
+
+.reason-box {
+    margin-top: 24px;
+    padding: 22px;
+    background: #f5f0e9;
+    border-radius: 14px;
+}
+
+.reason-title {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.reason-subtitle {
+    font-size: 14px;
+    color: #625a52;
+    margin-bottom: 14px;
+}
+
+.reason-subtitle span {
+    color: #968c82;
+}
+
+#reasonInput {
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+    border: 1px solid #d8cec3;
+    border-radius: 10px;
+    background: #fffdf9;
+    padding: 13px;
+    font-family: inherit;
+    font-size: 15px;
+    color: #25221f;
+    outline: none;
+}
+
+#reasonInput:focus {
+    border-color: #8c8177;
+}
+
+.reason-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.reason-buttons button {
+    flex: 1;
+    padding: 11px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.submit-reason {
+    background: #292521;
+    color: white;
+    border: 1px solid #292521;
+}
+
+.skip-reason {
+    background: transparent;
+    color: #4d4741;
+    border: 1px solid #d5ccc2;
+}
+
+.response-message {
+    text-align: center;
+    margin-top: 22px;
+    font-size: 17px;
+    color: #665d55;
+}
+
+@media (max-width: 600px) {
+
+    .page {
+        padding: 14px;
     }
 
-    buttons.classList.add("hidden");
+    .card {
+        padding: 30px 22px;
+        border-radius: 18px;
+    }
 
-    if (answer === "Yes ♡") {
-        message.textContent = "Okay. Date it is.";
-    } else {
-        message.textContent = "Okay. I understand.";
+    h1 {
+        font-size: 34px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .buttons button {
+        width: 100%;
+    }
+
+    .reason-buttons {
+        flex-direction: column;
     }
 }
