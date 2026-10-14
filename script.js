@@ -1,7 +1,15 @@
+const SUPABASE_URL =
+    "https://btcrrfetdxsgugjxytok.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_c01hMVSsAB41BbTfSw7acg_5Rb5B6tA";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
 let personName = "";
-
-
-/* GO TO PROPOSAL */
 
 function continueToProposal() {
 
@@ -9,102 +17,68 @@ function continueToProposal() {
 
     personName = input.value.trim();
 
-    if (personName === "") {
+    if (!personName) {
         input.focus();
         return;
     }
 
-    document
-        .getElementById("namePage")
-        .classList.add("hidden");
-
-    document
-        .getElementById("proposalPage")
-        .classList.remove("hidden");
+    document.getElementById("namePage").classList.add("hidden");
+    document.getElementById("proposalPage").classList.remove("hidden");
 }
 
-
-/* OPEN / CLOSE TERMS */
 
 function toggleTerms() {
 
     const terms = document.getElementById("terms");
     const arrow = document.getElementById("arrow");
 
-    terms.classList.toggle("hidden");
-
     if (terms.classList.contains("hidden")) {
 
-        arrow.textContent = "+";
+        terms.classList.remove("hidden");
+        arrow.textContent = "−";
 
     } else {
 
-        arrow.textContent = "−";
+        terms.classList.add("hidden");
+        arrow.textContent = "+";
 
     }
 }
 
 
-/* SEND RESPONSE */
-
 async function sendResponse(answer) {
 
-    const message =
-        document.getElementById("responseMessage");
+    const buttons = document.getElementById("responseButtons");
+    const message = document.getElementById("responseMessage");
 
-    message.textContent =
-        "Recording response...";
+    buttons.style.pointerEvents = "none";
 
-
-    try {
-
-        const response = await fetch(
-            "/respond",
+    const { error } = await supabaseClient
+        .from("responses")
+        .insert([
             {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    name: personName,
-                    answer: answer
-                })
+                name: personName,
+                answer: answer
             }
-        );
+        ]);
 
+    if (error) {
 
-        const data = await response.json();
+        console.error("Supabase error:", error);
 
-
-        if (data.success) {
-
-            if (answer === "Yes") {
-
-                message.textContent =
-                    "Response recorded ♡";
-
-            } else {
-
-                message.textContent =
-                    "Okay. Your response has been recorded.";
-
-            }
-
-        } else {
-
-            message.textContent =
-                "Something went wrong.";
-
-        }
-
-    } catch (error) {
-
-        console.error(error);
+        buttons.style.pointerEvents = "auto";
 
         message.textContent =
-            "Could not record the response.";
+            "Something went wrong. Please try again.";
 
+        return;
+    }
+
+    buttons.classList.add("hidden");
+
+    if (answer === "Yes ♡") {
+        message.textContent = "Okay. Date it is.";
+    } else {
+        message.textContent = "Okay. I understand.";
     }
 }
