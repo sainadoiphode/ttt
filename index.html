@@ -1,0 +1,188 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Proposal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- NAME PAGE -->
+    <section id="namePage" class="card">
+
+        <p class="eyebrow">Before we begin.</p>
+
+        <h1>Name</h1>
+
+        <input
+            type="text"
+            id="nameInput"
+            placeholder="someone named Trivikram?"
+            autocomplete="off"
+        >
+
+        <button onclick="continueToProposal()">
+            Continue →
+        </button>
+
+    </section>
+
+
+    <!-- PROPOSAL PAGE -->
+    <section id="proposalPage" class="card hidden">
+
+        <p class="eyebrow">No dramatic speech.</p>
+
+        <h1>I have a proposal.</h1>
+
+        <p class="intro">
+            Nothing complicated. Just something I wanted to ask you.
+        </p>
+
+
+        <!-- TERMS -->
+        <div class="terms-box">
+
+            <button
+                class="terms-button"
+                onclick="toggleTerms()"
+            >
+                <span>Terms & Conditions ♡</span>
+                <span id="arrow">+</span>
+            </button>
+
+            <div id="terms" class="terms hidden">
+
+                <p>
+                    <strong>01.</strong>
+                    I won’t make you responsible for regulating my emotions.
+                </p>
+
+                <p>
+                    <strong>02.</strong>
+                    I won’t project my insecurities onto you.
+                </p>
+
+                <p>
+                    <strong>03.</strong>
+                    I won’t make assumptions instead of asking you directly.
+                </p>
+
+                <p>
+                    <strong>04.</strong>
+                    I won’t turn every interaction into a relationship discussion.
+                </p>
+
+                <p>
+                    <strong>05.</strong>
+                    I won’t pressure you for reassurance.
+                </p>
+
+                <p>
+                    <strong>06.</strong>
+                    I won’t punish you for needing space.
+                </p>
+
+                <p>
+                    <strong>07.</strong>
+                    I won’t make you prove that you care about me.
+                </p>
+
+                <p>
+                    <strong>08.</strong>
+                    I won’t let my past decide how I treat you.
+                </p>
+
+                <p>
+                    <strong>09.</strong>
+                    I won’t try to control you or tell you what you should do.
+                    I trust you to make your own choices.
+                </p>
+
+                <p>
+                    <strong>10.</strong>
+                    I won’t expect you to do things you don’t genuinely want
+                    to do just because you’re with me.
+                </p>
+
+                <p>
+                    <strong>11.</strong>
+                    I won’t expect you to trust me instantly.
+                </p>
+
+                <p>
+                    <strong>12.</strong>
+                    I won’t promise things and then expect the promise itself
+                    to count as change.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- NOTE -->
+        <div class="note">
+
+            <strong>I understand why you’d be cautious.</strong>
+            <br>
+            I’ll just be consistent.
+
+        </div>
+
+
+        <!-- DATE CLARIFICATION -->
+        <div class="clarification">
+
+            <strong>One thing clear:</strong>
+
+            <p>
+                Going on this date does not mean we’re together.
+                That only changes if we both officially decide that it does.
+            </p>
+
+        </div>
+
+
+        <!-- QUESTION -->
+        <h2>
+            So… will you go on a date with me?
+        </h2>
+
+
+        <!-- ANSWERS -->
+        <div class="buttons">
+
+            <button
+                class="yes"
+                onclick="sendResponse('Yes')"
+            >
+                Yes ♡
+            </button>
+
+            <button
+                class="think"
+                onclick="sendResponse('Not rn')"
+            >
+                Not rn
+            </button>
+
+        </div>
+
+
+        <p id="responseMessage" class="response"></p>
+
+    </section>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
