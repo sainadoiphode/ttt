@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>A Proposal</title>
+
     <link rel="stylesheet" href="style.css">
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -13,7 +15,9 @@
 
     <!-- NAME PAGE -->
     <section id="namePage" class="page">
+
         <div class="card name-card">
+
             <p class="section-label">Name</p>
 
             <input
@@ -23,10 +27,15 @@
                 autocomplete="off"
             >
 
-            <button class="primary-btn" onclick="continueToProposal()">
+            <button
+                class="primary-btn"
+                onclick="continueToProposal()"
+            >
                 Continue →
             </button>
+
         </div>
+
     </section>
 
 
@@ -45,7 +54,10 @@
             <!-- TERMS -->
             <div class="terms-section">
 
-                <button class="terms-toggle" onclick="toggleTerms()">
+                <button
+                    class="terms-toggle"
+                    onclick="toggleTerms()"
+                >
                     <span>Terms & Conditions ♡</span>
                     <span id="arrow">+</span>
                 </button>
@@ -54,93 +66,141 @@
 
                     <div class="term">
                         <span>01</span>
-                        <p>I won’t make you responsible for regulating my emotions.</p>
+                        <p>
+                            I won’t make you responsible for regulating my emotions.
+                        </p>
                     </div>
 
                     <div class="term">
                         <span>02</span>
-                        <p>I won’t project my insecurities onto you.</p>
+                        <p>
+                            I won’t project my insecurities onto you.
+                        </p>
                     </div>
 
                     <div class="term">
                         <span>03</span>
-                        <p>I won’t make assumptions instead of asking you directly.</p>
+                        <p>
+                            I won’t make assumptions instead of asking you directly.
+                        </p>
                     </div>
 
                     <div class="term">
                         <span>04</span>
-                        <p>I won’t turn every interaction into a relationship discussion.</p>
+                        <p>
+                            I won’t turn every interaction into a relationship discussion.
+                        </p>
                     </div>
 
                     <div class="term">
                         <span>05</span>
-                        <p>I won’t pressure you for reassurance.</p>
+                        <p>
+                            I won’t pressure you for reassurance.
+                        </p>
                     </div>
 
                     <div class="term">
                         <span>06</span>
-                        <p>I won’t punish you for needing space.</p>
+                        <p>
+                            I won’t punish you for needing space.
+                        </p>
                     </div>
 
                     <div class="term">
                         <span>07</span>
-                        <p>I won’t make you prove that you care about me.</p>
+                        <p>
+                            I won’t make you prove that you care about me.
+                        </p>
                     </div>
 
                     <div class="term">
                         <span>08</span>
-                        <p>I won’t let my past decide how I treat you.</p>
+                        <p>
+                            I won’t let my past decide how I treat you.
+                        </p>
                     </div>
 
                     <div class="term">
                         <span>09</span>
-                        <p>I won’t try to control you or tell you what you should do. I trust you to make your own choices.</p>
+                        <p>
+                            I won’t try to control you or tell you what you should do.
+                            I trust you to make your own choices.
+                        </p>
                     </div>
 
                     <div class="term">
                         <span>10</span>
-                        <p>I won’t expect you to do things you don’t genuinely want to do just because you’re with me.</p>
+                        <p>
+                            I won’t expect you to do things you don’t genuinely want
+                            to do just because you’re with me.
+                        </p>
                     </div>
 
                     <div class="term">
                         <span>11</span>
-                        <p>I won’t expect you to trust me instantly.</p>
+                        <p>
+                            I won’t expect you to trust me instantly.
+                        </p>
                     </div>
 
                     <div class="term">
                         <span>12</span>
-                        <p>I won’t promise things and then expect the promise itself to count as change.</p>
+                        <p>
+                            I won’t promise things and then expect the promise itself
+                            to count as change.
+                        </p>
                     </div>
 
                 </div>
+
             </div>
 
 
             <!-- CONSISTENCY NOTE -->
             <div class="note">
-                <strong>I understand why you’d be cautious.</strong>
-                <span>I’ll just be consistent.</span>
+
+                <strong>
+                    I understand why you’d be cautious.
+                </strong>
+
+                <span>
+                    I’ll just be consistent.
+                </span>
+
             </div>
 
 
             <!-- DATE CLARIFICATION -->
             <div class="clarification">
-                <p class="clarification-title">One thing clear:</p>
+
+                <p class="clarification-title">
+                    One thing clear:
+                </p>
 
                 <p>
                     Going on this date does not mean we’re together.
                     That only changes if we both officially decide that it does.
                 </p>
+
             </div>
 
 
             <!-- QUESTION -->
             <div class="question">
-                <p>So… will you go on a date with me?</p>
+
+                <p>
+                    So… will you go on a date with me?
+                </p>
+
+                <small>
+                    Yes doesn’t mean feelings or commitment.
+                    It just means one date.
+                </small>
+
             </div>
 
 
-            <!-- BUTTONS -->
+            <!-- RESPONSE BUTTONS -->
             <div id="responseButtons" class="buttons">
 
                 <button
@@ -152,7 +212,7 @@
 
                 <button
                     class="no-btn"
-                    onclick="sendResponse('Not rn')"
+                    onclick="showReasonBox()"
                 >
                     Not rn
                 </button>
@@ -160,8 +220,49 @@
             </div>
 
 
-            <!-- RESPONSE -->
-            <p id="responseMessage" class="response-message"></p>
+            <!-- OPTIONAL REASON -->
+            <div id="reasonBox" class="reason-box hidden">
+
+                <p class="reason-title">
+                    Noted.
+                </p>
+
+                <p class="reason-subtitle">
+                    Reason? <span>(Optional)</span>
+                </p>
+
+                <textarea
+                    id="reasonInput"
+                    placeholder="Type here..."
+                    maxlength="500"
+                ></textarea>
+
+                <div class="reason-buttons">
+
+                    <button
+                        class="submit-reason"
+                        onclick="submitReason()"
+                    >
+                        Submit
+                    </button>
+
+                    <button
+                        class="skip-reason"
+                        onclick="skipReason()"
+                    >
+                        Skip
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESPONSE MESSAGE -->
+            <p
+                id="responseMessage"
+                class="response-message"
+            ></p>
 
         </div>
 
